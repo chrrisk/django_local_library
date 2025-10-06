@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 from .models import Book, Author, BookInstance, Genre
 
 def index(request):
@@ -13,5 +14,20 @@ def index(request):
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
     }
-    return render(request, 'index.html', context)
+    return render(request, "catalog/index.html", context)
 
+
+class BookListView(generic.ListView):
+    model = Book
+    paginate_by = 10  # optional but recommended
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 10
+    ordering = ['last_name', 'first_name']  # nice default
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
