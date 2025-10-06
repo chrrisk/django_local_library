@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>All authors</h1>
+
+  {% if author_list %}
+    <ul>
+      {% for author in author_list %}
+        <li>
+          <a href="{{ author.get_absolute_url }}">
+            {{ author.last_name }}, {{ author.first_name }}
+          </a>
+          {% if author.date_of_birth %}
+            (b. {{ author.date_of_birth|date:"M j, Y" }})
+          {% endif %}
+          {% if author.date_of_death %}
+            – d. {{ author.date_of_death|date:"M j, Y" }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if is_paginated %}
+      <nav aria-label="Authors pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  {% else %}
+    <p>No authors available.</p>
+  {% endif %}
+{% endblock %}
+

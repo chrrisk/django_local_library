@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <p><strong>Author:</strong> {{ object.author }}</p>
+  <p><strong>Summary:</strong> {{ object.summary }}</p>
+  <p><strong>ISBN:</strong> {{ object.isbn }}</p>
+  <p><strong>Language:</strong> {{ object.language }}</p>
+  <p><strong>Genres:</strong> {% for g in object.genre.all %}{{ g }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+{% endblock %}
+
